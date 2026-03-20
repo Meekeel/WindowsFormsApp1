@@ -19,6 +19,8 @@ namespace WindowsFormsApp1
             textBoxName2.Text = CurrentStudent.Name2;
             dateTimePicker1.Value = CurrentStudent.DayOfBirthd;
             textBoxNumber.Text = CurrentStudent.Telephone;
+            textGroupNumber.Text = CurrentStudent.GroupNumber;
+            textBoxFamilyMemberSum.Text = CurrentStudent.FamilyMemberSum;
 
         }
         public Form2(Student selectedStudent)
@@ -51,6 +53,7 @@ namespace WindowsFormsApp1
             CurrentStudent.Name2 = textBoxName2.Text;
             CurrentStudent.DayOfBirthd = dateTimePicker1.Value;
             CurrentStudent.Telephone = textBoxNumber.Text;
+            CurrentStudent.GroupNumber = textGroupNumber.Text;
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -66,12 +69,37 @@ namespace WindowsFormsApp1
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textGroupNumber_TextChanged(object sender, EventArgs e)
         {
 
         }
 
         private void textBoxNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxFamilyMemberSum_TextChanged(object sender, EventArgs e)
         {
 
         }

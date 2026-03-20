@@ -39,8 +39,10 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textGroupNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxFamilyMemberSum = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -60,6 +62,7 @@
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Имя";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxName
             // 
@@ -120,7 +123,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(33, 237);
+            this.buttonSave.Location = new System.Drawing.Point(33, 277);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(135, 56);
             this.buttonSave.TabIndex = 8;
@@ -130,7 +133,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(179, 237);
+            this.buttonCancel.Location = new System.Drawing.Point(174, 277);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(135, 56);
             this.buttonCancel.TabIndex = 9;
@@ -142,20 +145,20 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(73, 30);
+            this.label5.Location = new System.Drawing.Point(56, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(202, 25);
+            this.label5.Size = new System.Drawing.Size(241, 25);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Данные студента";
+            this.label5.Text = "Данные члена семьи";
             // 
-            // textBox1
+            // textGroupNumber
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox1.Location = new System.Drawing.Point(149, 205);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 26);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textGroupNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.textGroupNumber.Location = new System.Drawing.Point(149, 205);
+            this.textGroupNumber.Name = "textGroupNumber";
+            this.textGroupNumber.Size = new System.Drawing.Size(165, 26);
+            this.textGroupNumber.TabIndex = 11;
+            this.textGroupNumber.TextChanged += new System.EventHandler(this.textGroupNumber_TextChanged);
             // 
             // label6
             // 
@@ -166,14 +169,37 @@
             this.label6.Size = new System.Drawing.Size(92, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Номер группы";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(18, 246);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(125, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Сумма члена семьи";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // textBoxFamilyMemberSum
+            // 
+            this.textBoxFamilyMemberSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFamilyMemberSum.Location = new System.Drawing.Point(149, 238);
+            this.textBoxFamilyMemberSum.Name = "textBoxFamilyMemberSum";
+            this.textBoxFamilyMemberSum.Size = new System.Drawing.Size(165, 26);
+            this.textBoxFamilyMemberSum.TabIndex = 14;
+            this.textBoxFamilyMemberSum.TextChanged += new System.EventHandler(this.textBoxFamilyMemberSum_TextChanged);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 336);
+            this.ClientSize = new System.Drawing.Size(352, 345);
+            this.Controls.Add(this.textBoxFamilyMemberSum);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textGroupNumber);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -186,7 +212,8 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
-            this.Text = "Добавить/изменить студента";
+            this.Text = "Добавить/изменить члена семьи";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +232,9 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textGroupNumber;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxFamilyMemberSum;
     }
 }

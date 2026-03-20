@@ -13,7 +13,8 @@ namespace WindowsFormsApp1
         public string Name2{ get; set; }
         public DateTime DayOfBirthd { get; set; }
         public string Telephone { get; set; }
-
+        public string GroupNumber { get; set; }
+        public string FamilyMemberSum { get; set; }
         public string FullName => $"{Name} {Name2}";
 
     }

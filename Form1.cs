@@ -149,5 +149,23 @@ namespace WindowsFormsApp1
             MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
             refreshTable();
         }
+
+        private void buttonFamilyMembers_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = listStudent;
+        }
+
+        private void buttonExpenses_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = listStudent;
+        }
+
+        private void buttonFinances_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = listStudent;
+        }
     }
 }
