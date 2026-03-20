@@ -13,13 +13,20 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        public enum States { STUDENTS=0, PRODUCTS, FINANCES, EXPENSES };
+        public States currentState = States.STUDENTS;
+
+        List<Product> listProduct = new List<Product>();
         List<Student> listStudent = new List<Student>();
+        List<Finance> listFinance = new List<Finance>();
+        List<Finance> listExpense = new List<Finance>();
         private int idSelect = 1;
         private string filePath = "students.txt";
         public Form1()
         {
             InitializeComponent();
             loadData();
+            refreshTable();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,7 +42,26 @@ namespace WindowsFormsApp1
         private void refreshTable()
         {
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = listStudent;
+            switch (currentState)
+            {
+                case States.STUDENTS:
+                    dataGridView1.DataSource = listStudent;
+                    titleLabel.Text = "Список членов семьи";
+                    break;
+                case States.FINANCES:
+                    dataGridView1.DataSource = listFinance;
+                    titleLabel.Text = "Список доходов";
+                    break;
+                case States.EXPENSES:
+                    dataGridView1.DataSource = listExpense;
+                    titleLabel.Text = "Список расходов";
+                    break;
+                case States.PRODUCTS:
+                    dataGridView1.DataSource = listProduct;
+                    titleLabel.Text = "Список товаров";
+                    break;
+            }
+            
         }
 
         private void buttonDel_Click(object semder, EventArgs e)
@@ -64,15 +90,56 @@ namespace WindowsFormsApp1
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            using (var formE = new Form2(null))
+            switch (currentState)
             {
-                if (formE.ShowDialog() == DialogResult.OK)
-                {
-                    Student newStudent = formE.CurrentStudent;
-                    newStudent.Id = idSelect++;
-                    listStudent.Add(newStudent);
-                    refreshTable();
-                }
+                case States.STUDENTS:
+                    using (var formE = new Form2(null))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            Student newStudent = formE.CurrentStudent;
+                            newStudent.Id = idSelect++;
+                            listStudent.Add(newStudent);
+                            refreshTable();
+                        }
+                    }
+                    break;
+                case States.PRODUCTS:
+                    using (var formE = new ProductConstructor(null))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            Product newProduct = formE.CurrentProduct;
+                            newProduct.Id = idSelect++;
+                            listProduct.Add(newProduct);
+                            refreshTable();
+                        }
+                    }
+                    break;
+                case States.FINANCES:
+                    using (var formE = new FinanceConstructor(null, true, listProduct, listStudent))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            Finance result = formE.CurrentFinance;
+                            result.Id = idSelect++;
+                            listFinance.Add(result);
+                            refreshTable();
+                        }
+                    }
+                    break;
+                case States.EXPENSES:
+                    using (var formE = new FinanceConstructor(null, false, listProduct, listStudent))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            Finance result = formE.CurrentFinance;
+                            result.Id = idSelect++;
+                            listExpense.Add(result);
+                            refreshTable();
+                        }
+                    }
+                    break;
             }
         }
 
@@ -99,7 +166,7 @@ namespace WindowsFormsApp1
             {
                 lineData.Add(
                     $"{line.Id}|{line.Name}|{line.Name2}|" +
-                    $"{line.DayOfBirthd:yyyy-MM-dd}|{line.Telephone}");
+                    $"{line.DayOfBirthd:yyyy-MM-dd}|{line.Telephone}|{line.FamilyMemberSum}");
             }
             File.WriteAllLines(filePath, lineData);
             MessageBox.Show("Данные сохранены!", "Данные сохранены!", MessageBoxButtons.OK);
@@ -135,7 +202,8 @@ namespace WindowsFormsApp1
                         Name = parts[1],
                         Name2 = parts[2],
                         DayOfBirthd = Convert.ToDateTime(parts[3]),
-                        Telephone = parts[4]
+                        Telephone = parts[4],
+                        FamilyMemberSum = parts[5]
                     });
                     idSelect = Convert.ToInt32(parts[0] + 1);
                 }
@@ -152,20 +220,26 @@ namespace WindowsFormsApp1
 
         private void buttonFamilyMembers_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = listStudent;
+            currentState = States.STUDENTS;
+            refreshTable();
         }
 
         private void buttonExpenses_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = listStudent;
+            currentState = States.EXPENSES;
+            refreshTable();
         }
 
         private void buttonFinances_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = listStudent;
+            currentState = States.FINANCES;
+            refreshTable();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            currentState = States.PRODUCTS;
+            refreshTable();
         }
     }
 }

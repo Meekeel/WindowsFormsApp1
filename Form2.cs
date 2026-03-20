@@ -44,7 +44,8 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -54,6 +55,7 @@ namespace WindowsFormsApp1
             CurrentStudent.DayOfBirthd = dateTimePicker1.Value;
             CurrentStudent.Telephone = textBoxNumber.Text;
             CurrentStudent.GroupNumber = textGroupNumber.Text;
+            CurrentStudent.FamilyMemberSum = textBoxFamilyMemberSum.Text;
             DialogResult = DialogResult.OK;
             Close();
         }
