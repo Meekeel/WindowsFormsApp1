@@ -82,26 +82,99 @@ namespace WindowsFormsApp1
 
         private void buttonDel_Click(object semder, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count <= 0)
+            switch (currentState)
             {
-                MessageBox.Show("Вы не выбрали ни одного студента"
-                    , "Не выбран студент",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                    );
-                return;
-            }
-            Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
-            if (MessageBox.Show("Вы уверены, что хотите удалить этого студента?", "Точно удалить?",
-                MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes
-                )
-            {
-                Student remStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
-                listStudent.Remove(remStudent);
-                refreshTable();
+                case States.STUDENTS:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни одного студента"
+                            , "Не выбран студент",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                            );
+                        return;
+                    }
+                    Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
+                    if (MessageBox.Show("Вы уверены, что хотите удалить этого студента?", "Точно удалить?",
+                        MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes
+                        )
+                    {
+                        Student remStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
+                        listStudent.Remove(remStudent);
+                        refreshTable();
+                    }
+                    break;
+
+                case States.FINANCES:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни один доход"
+                            , "Не выбран доход",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                            );
+                        return;
+                    }
+                    Finance selectedFinance = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                    if (MessageBox.Show("Вы уверены, что хотите удалить этот доход?", "Точно удалить?",
+                        MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes
+                        )
+                    {
+                        Finance remFinance = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                        listFinance.Remove(remFinance);
+                        refreshTable();
+                    }
+                    break;
+
+                case States.EXPENSES:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни один расход"
+                            , "Не выбран расход",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                            );
+                        return;
+                    }
+                    Finance selectedExpense = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                    if (MessageBox.Show("Вы уверены, что хотите удалить этот расход?", "Точно удалить?",
+                        MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes
+                        )
+                    {
+                        Finance remExpense = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                        listExpense.Remove(remExpense);
+                        refreshTable();
+                    }
+                    break;
+
+                case States.PRODUCTS:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни одного продукта"
+                            , "Не выбран продукт",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                            );
+                        return;
+                    }
+                    Product selectedProduct = (Product)dataGridView1.SelectedRows[0].DataBoundItem;
+                    if (MessageBox.Show("Вы уверены, что хотите удалить этот продукт?", "Точно удалить?",
+                        MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes
+                        )
+                    {
+                        Product remProduct = (Product)dataGridView1.SelectedRows[0].DataBoundItem;
+                        listProduct.Remove(remProduct);
+                        refreshTable();
+                    }
+                    break;
             }
         }
+
+
 
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -164,6 +237,7 @@ namespace WindowsFormsApp1
             if (dataGridView1.SelectedRows.Count <= 0)
             {
                 MessageBox.Show("Вы не выбрали ни одного студанта!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
             using (var formE = new Form2(selectedStudent))
@@ -279,12 +353,36 @@ namespace WindowsFormsApp1
             refreshTable();
         }
 
+
+
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            listStudent.Clear();
-            MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
-            refreshTable();
+            switch (currentState)
+            {
+                case States.STUDENTS:
+                    listStudent.Clear();
+                    MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
+                    refreshTable();
+                    break;
+                case States.FINANCES:
+                    listFinance.Clear();
+                    MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
+                    refreshTable();
+                    break;
+                case States.EXPENSES:
+                    listExpense.Clear();
+                    MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
+                    refreshTable();
+                    break;
+                case States.PRODUCTS:
+                    listProduct.Clear();
+                    MessageBox.Show("Данные очищены!", "Данные сохранены!", MessageBoxButtons.OK);
+                    refreshTable();
+                    break;
+            }
         }
+
+
 
         private void buttonFamilyMembers_Click(object sender, EventArgs e)
         {
