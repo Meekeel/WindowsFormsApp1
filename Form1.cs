@@ -300,6 +300,7 @@ namespace WindowsFormsApp1
                     }
                     break;
             }
+
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -340,6 +341,7 @@ namespace WindowsFormsApp1
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             buttonEdit_Click(sender, e);
+            buttonDel_Click(sender, e);
         }
 
         private void loadData()
