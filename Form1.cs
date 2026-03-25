@@ -61,7 +61,23 @@ namespace WindowsFormsApp1
                     titleLabel.Text = "Список товаров";
                     break;
             }
-            
+
+            long totalSum = 0;
+
+            foreach (Student student in listStudent)
+            {
+                totalSum += Convert.ToInt64(student.FamilyMemberSum);
+            }
+            foreach (Finance finance in listFinance)
+            {
+                totalSum += finance.Amount;
+            }
+            foreach (Finance expense in listExpense)
+            {
+                totalSum -= expense.Amount;
+            }
+
+            familySumLabel.Text = "Сумма: " + string.Format("{0:C2}", totalSum);
         }
 
         private void buttonDel_Click(object semder, EventArgs e)
@@ -292,6 +308,11 @@ namespace WindowsFormsApp1
         {
             currentState = States.PRODUCTS;
             refreshTable();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
