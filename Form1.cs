@@ -320,12 +320,12 @@ namespace WindowsFormsApp1
 
             foreach (var line in listFinance)
             {
-                lineData.Add($"F|{line.Id}|{line.product}|{line.Owner}");
+                lineData.Add($"F|{line.Id}|{line.product}|{line.Owner}|{line.Amount}");
             }
 
             foreach (var line in listExpense)
             {
-                lineData.Add($"E|{line.Id}|{line.product}|{line.Owner}");
+                lineData.Add($"E|{line.Id}|{line.product}|{line.Owner}|{line.Amount}");
             }
 
             File.Delete(filePath);
@@ -389,7 +389,8 @@ namespace WindowsFormsApp1
                             {
                                 Id= Convert.ToInt32(parts[1]),
                                 product = parts[2],
-                                Owner = parts[3]
+                                Owner = parts[3],
+                                Amount = Convert.ToInt32(parts[4])
                             });
                             break;
                         case 'F':
@@ -397,7 +398,8 @@ namespace WindowsFormsApp1
                             {
                                 Id = Convert.ToInt32(parts[1]),
                                 product = parts[2],
-                                Owner = parts[3]
+                                Owner = parts[3],
+                                Amount = Convert.ToInt32(parts[4])
                             });
                             break;
                         default:
