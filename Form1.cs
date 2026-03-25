@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
         List<Finance> listFinance = new List<Finance>();
         List<Finance> listExpense = new List<Finance>();
         private int idSelect = 1;
-        private string filePath = "students.txt";
+        private string filePath = "saved_data.txt";
         public Form1()
         {
             InitializeComponent();
@@ -165,9 +165,26 @@ namespace WindowsFormsApp1
             foreach (var line in listStudent)
             {
                 lineData.Add(
-                    $"{line.Id}|{line.Name}|{line.Name2}|" +
+                    $"S|{line.Id}|{line.Name}|{line.Name2}|" +
                     $"{line.DayOfBirthd:yyyy-MM-dd}|{line.Telephone}|{line.FamilyMemberSum}");
             }
+
+            foreach (var line in listProduct)
+            {
+                lineData.Add($"P|{line.Id}|{line.Name}|{line.Price}|{line.Category}");
+            }
+
+            foreach (var line in listFinance)
+            {
+                lineData.Add($"F|{line.Id}|{line.product}|{line.Owner}");
+            }
+
+            foreach (var line in listExpense)
+            {
+                lineData.Add($"E|{line.Id}|{line.product}|{line.Owner}");
+            }
+
+            File.Delete(filePath);
             File.WriteAllLines(filePath, lineData);
             MessageBox.Show("Данные сохранены!", "Данные сохранены!", MessageBoxButtons.OK);
             refreshTable();
@@ -189,23 +206,58 @@ namespace WindowsFormsApp1
                 return;
             }
             listStudent.Clear();
+            listProduct.Clear();
+            listExpense.Clear();
+            listFinance.Clear();
             idSelect = 1;
 
             foreach (string line in File.ReadAllLines(filePath))
             {
                 string[] parts = line.Split('|');
-                if (parts.Length == 5)
+                if (parts.Length >= 1)
                 {
-                    listStudent.Add(new Student()
+                    char field = parts[0][0];
+                    switch (field)
                     {
-                        Id = Convert.ToInt32(parts[0]),
-                        Name = parts[1],
-                        Name2 = parts[2],
-                        DayOfBirthd = Convert.ToDateTime(parts[3]),
-                        Telephone = parts[4],
-                        FamilyMemberSum = parts[5]
-                    });
-                    idSelect = Convert.ToInt32(parts[0] + 1);
+                        case 'S':
+                            listStudent.Add(new Student()
+                            {
+                                Id = Convert.ToInt32(parts[1]),
+                                Name = parts[2],
+                                Name2 = parts[3],
+                                DayOfBirthd = Convert.ToDateTime(parts[4]),
+                                Telephone = parts[5],
+                                FamilyMemberSum = parts[6]
+                            });
+                            break;
+                        case 'P':
+                            listProduct.Add(new Product()
+                            {
+                                Id = Convert.ToInt32(parts[1]),
+                                Name = parts[2],
+                                Price = Convert.ToInt32(parts[3]),
+                                Category = parts[4]
+                            });
+                            break;
+                        case 'E':
+                            listExpense.Add(new Finance()
+                            {
+                                Id= Convert.ToInt32(parts[1]),
+                                product = parts[2],
+                                Owner = parts[3]
+                            });
+                            break;
+                        case 'F':
+                            listFinance.Add(new Finance()
+                            {
+                                Id = Convert.ToInt32(parts[1]),
+                                product = parts[2],
+                                Owner = parts[3]
+                            });
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             refreshTable();
