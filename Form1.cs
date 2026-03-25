@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 
 namespace WindowsFormsApp1
 {
@@ -16,15 +17,20 @@ namespace WindowsFormsApp1
         public enum States { STUDENTS=0, PRODUCTS, FINANCES, EXPENSES };
         public States currentState = States.STUDENTS;
 
-        List<Product> listProduct = new List<Product>();
-        List<Student> listStudent = new List<Student>();
-        List<Finance> listFinance = new List<Finance>();
-        List<Finance> listExpense = new List<Finance>();
+        SortableBindingList<Product> listProduct = new SortableBindingList<Product>();
+        SortableBindingList<Student> listStudent = new SortableBindingList<Student>();
+        SortableBindingList<Finance> listFinance = new SortableBindingList<Finance>();
+        SortableBindingList<Finance> listExpense = new SortableBindingList<Finance>();
+        
         private int idSelect = 1;
         private string filePath = "saved_data.txt";
+
+        private ListSortDirection previousSortType = ListSortDirection.Descending;
+
         public Form1()
         {
             InitializeComponent();
+            
             loadData();
             refreshTable();
         }
@@ -41,7 +47,6 @@ namespace WindowsFormsApp1
 
         private void refreshTable()
         {
-            dataGridView1.DataSource = null;
             switch (currentState)
             {
                 case States.STUDENTS:
@@ -189,7 +194,6 @@ namespace WindowsFormsApp1
                             Student newStudent = formE.CurrentStudent;
                             newStudent.Id = idSelect++;
                             listStudent.Add(newStudent);
-                            refreshTable();
                         }
                     }
                     break;
@@ -201,7 +205,6 @@ namespace WindowsFormsApp1
                             Product newProduct = formE.CurrentProduct;
                             newProduct.Id = idSelect++;
                             listProduct.Add(newProduct);
-                            refreshTable();
                         }
                     }
                     break;
@@ -213,7 +216,6 @@ namespace WindowsFormsApp1
                             Finance result = formE.CurrentFinance;
                             result.Id = idSelect++;
                             listFinance.Add(result);
-                            refreshTable();
                         }
                     }
                     break;
@@ -225,11 +227,11 @@ namespace WindowsFormsApp1
                             Finance result = formE.CurrentFinance;
                             result.Id = idSelect++;
                             listExpense.Add(result);
-                            refreshTable();
                         }
                     }
                     break;
             }
+            refreshTable();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -310,7 +312,7 @@ namespace WindowsFormsApp1
             {
                 lineData.Add(
                     $"S|{line.Id}|{line.Name}|{line.Name2}|" +
-                    $"{line.DayOfBirthd:yyyy-MM-dd}|{line.Telephone}|{line.FamilyMemberSum}");
+                    $"{line.DayOfBirthd:yyyy-MM-dd}|{line.Telephone}|{line.GroupNumber}|{line.FamilyMemberSum}");
             }
 
             foreach (var line in listProduct)
@@ -372,7 +374,8 @@ namespace WindowsFormsApp1
                                 Name2 = parts[3],
                                 DayOfBirthd = Convert.ToDateTime(parts[4]),
                                 Telephone = parts[5],
-                                FamilyMemberSum = parts[6]
+                                GroupNumber = parts[6],
+                                FamilyMemberSum = parts[7]
                             });
                             break;
                         case 'P':
@@ -468,6 +471,13 @@ namespace WindowsFormsApp1
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            previousSortType = (previousSortType == ListSortDirection.Descending) ? ListSortDirection.Ascending : ListSortDirection.Descending;
+            dataGridView1.Sort(dataGridView1.Columns[e.ColumnIndex], previousSortType);
+            refreshTable();
         }
     }
 }

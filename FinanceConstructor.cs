@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
     public partial class FinanceConstructor : Form
     {
         public Finance CurrentFinance { get; private set; }
-        private List<Product> products { get; }
+        private SortableBindingList<Product> products { get; }
         private bool isFinance { get; }
 
         private void fillForm()
@@ -22,7 +22,7 @@ namespace WindowsFormsApp1
             customerComboBox.Text = CurrentFinance.product;
         }
 
-        public FinanceConstructor(Finance parent, bool isFinance, List<Product> products, List<Student> students)
+        public FinanceConstructor(Finance parent, bool isFinance, SortableBindingList<Product> products, SortableBindingList<Student> students)
         {
             InitializeComponent();
 
@@ -109,6 +109,7 @@ namespace WindowsFormsApp1
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }
