@@ -36,6 +36,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.productComboBox = new System.Windows.Forms.ComboBox();
             this.customerComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.amountNumberic = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.amountNumberic)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -61,17 +64,17 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(159, 148);
+            this.buttonCancel.Location = new System.Drawing.Point(159, 174);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(135, 56);
             this.buttonCancel.TabIndex = 24;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click_1);
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(18, 148);
+            this.buttonSave.Location = new System.Drawing.Point(18, 174);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(135, 56);
             this.buttonSave.TabIndex = 23;
@@ -105,6 +108,7 @@
             this.productComboBox.Name = "productComboBox";
             this.productComboBox.Size = new System.Drawing.Size(121, 21);
             this.productComboBox.TabIndex = 28;
+            this.productComboBox.Text = "(Выберите)";
             // 
             // customerComboBox
             // 
@@ -113,12 +117,48 @@
             this.customerComboBox.Name = "customerComboBox";
             this.customerComboBox.Size = new System.Drawing.Size(121, 21);
             this.customerComboBox.TabIndex = 29;
+            this.customerComboBox.Text = "(Выберите)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(15, 132);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "Количество";
+            // 
+            // amountNumberic
+            // 
+            this.amountNumberic.Location = new System.Drawing.Point(159, 130);
+            this.amountNumberic.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.amountNumberic.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.amountNumberic.Name = "amountNumberic";
+            this.amountNumberic.Size = new System.Drawing.Size(121, 20);
+            this.amountNumberic.TabIndex = 31;
+            this.amountNumberic.ThousandsSeparator = true;
+            this.amountNumberic.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // FinanceConstructor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 219);
+            this.ClientSize = new System.Drawing.Size(308, 242);
+            this.Controls.Add(this.amountNumberic);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.customerComboBox);
             this.Controls.Add(this.productComboBox);
             this.Controls.Add(this.label3);
@@ -130,6 +170,7 @@
             this.Name = "FinanceConstructor";
             this.Text = "FinanceConstructor";
             this.Load += new System.EventHandler(this.FinanceConstructor_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.amountNumberic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,5 +185,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox productComboBox;
         private System.Windows.Forms.ComboBox customerComboBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown amountNumberic;
     }
 }
