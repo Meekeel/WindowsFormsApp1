@@ -234,18 +234,71 @@ namespace WindowsFormsApp1
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count <= 0)
+            switch (currentState)
             {
-                MessageBox.Show("Вы не выбрали ни одного студанта!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
-            using (var formE = new Form2(selectedStudent))
-            {
-                if (formE.ShowDialog() == DialogResult.OK)
-                {
-                    refreshTable();
-                }
+                case States.STUDENTS:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни одного студента!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
+                    using (var formE = new Form2(selectedStudent))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            refreshTable();
+                        }
+                    }
+                    break;
+
+                case States.PRODUCTS:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни одного продукта!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    Product selectedProduct = (Product)dataGridView1.SelectedRows[0].DataBoundItem;
+                    using (var formE = new ProductConstructor(selectedProduct))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            refreshTable();
+                        }
+                    }
+                    break;
+
+                case States.EXPENSES:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни один расход!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    Finance selectedExpense = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                    using (var formE = new FinanceConstructor(selectedExpense, true, listProduct, listStudent))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            refreshTable();
+                        }
+                    }
+                    break;
+
+                case States.FINANCES:
+                    if (dataGridView1.SelectedRows.Count <= 0)
+                    {
+                        MessageBox.Show("Вы не выбрали ни один доход!", "Не выбрали", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    Finance selectedFinance = (Finance)dataGridView1.SelectedRows[0].DataBoundItem;
+                    using (var formE = new FinanceConstructor(selectedFinance, true, listProduct, listStudent))
+                    {
+                        if (formE.ShowDialog() == DialogResult.OK)
+                        {
+                            refreshTable();
+                        }
+                    }
+                    break;
             }
         }
 
